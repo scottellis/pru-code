@@ -1,0 +1,49 @@
+/*
+ * Copyright (C) 2017 Jumpnow Technologies, LLC - http://jumpnowtek.com/
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+
+/dts-v1/;
+
+#include "am33xx.dtsi"
+#include "am335x-bone-common.dtsi"
+#include "am33xx-pruss-uio.dtsi"
+
+/ {
+	compatible = "ti,am335x-bone-green", "ti,am335x-bone-black", "ti,am335x-bone", "ti,am33xx";
+};
+
+&ldo3_reg {
+	regulator-min-microvolt = <1800000>;
+	regulator-max-microvolt = <1800000>;
+	regulator-always-on;
+};
+
+&mmc1 {
+	vmmc-supply = <&vmmcsd_fixed>;
+};
+
+&rtc {
+	system-power-controller;
+};
+
+&am33xx_pinmux {
+	pruss_pins: pruss_pins {
+		pinctrl-single,pins = <
+			0x190 (PIN_OUTPUT_PULLDOWN | MUX_MODE5)	/* P9.31 pr1_pru0_pru_r30_0 */
+			0x194 (PIN_OUTPUT_PULLDOWN | MUX_MODE5)	/* P9.29 pr1_pru0_pru_r30_1 */
+			0x198 (PIN_OUTPUT_PULLDOWN | MUX_MODE5)	/* P9.30 pr1_pru0_pru_r30_2 */
+			0x19c (PIN_OUTPUT_PULLDOWN | MUX_MODE5)	/* P9.28 pr1_pru0_pru_r30_3 */
+			0x1a4 (PIN_INPUT | MUX_MODE6)           /* P9.27 pr1_pru0_pru_r31_5 */
+			0x1ac (PIN_INPUT | MUX_MODE6)           /* P9.25 pr1_pru0_pru_r31_7 */
+		>;
+	};
+};
+
+&pruss {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pruss_pins>;
+};
