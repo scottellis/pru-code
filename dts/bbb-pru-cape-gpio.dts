@@ -31,17 +31,22 @@
 };
 
 &am33xx_pinmux {
-	pruss_leds: pruss_leds {
+	pruss_pins: pruss_pins {
 		pinctrl-single,pins = <
 			0x190 (PIN_OUTPUT_PULLDOWN | MUX_MODE5)	/* P9.31 pr1_pru0_pru_r30_0 */
 			0x194 (PIN_OUTPUT_PULLDOWN | MUX_MODE5)	/* P9.29 pr1_pru0_pru_r30_1 */
 			0x198 (PIN_OUTPUT_PULLDOWN | MUX_MODE5)	/* P9.30 pr1_pru0_pru_r30_2 */
 			0x19c (PIN_OUTPUT_PULLDOWN | MUX_MODE5)	/* P9.28 pr1_pru0_pru_r30_3 */
+			0x0a4 (PIN_OUTPUT_PULLDOWN | MUX_MODE5) /* P8.46 pr1_pru1_pru_r30_1 */
+			0x0ac (PIN_OUTPUT_PULLDOWN | MUX_MODE5) /* P8.44 pr1_pru1_pru_r30_3 */
+			0x0b4 (PIN_OUTPUT_PULLDOWN | MUX_MODE5) /* P8.42 pr1_pru1_pru_r30_5 */
+			0x1a4 (PIN_INPUT | MUX_MODE6)           /* P9.27 pr1_pru0_pru_r31_5 */
+			0x1ac (PIN_INPUT | MUX_MODE6)           /* P9.25 pr1_pru0_pru_r31_7 */
 		>;
 	};
 };
 
 &pruss {
 	pinctrl-names = "default";
-	pinctrl-0 = <&pruss_leds>;
+	pinctrl-0 = <&pruss_pins>;
 };
