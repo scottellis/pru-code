@@ -1,5 +1,6 @@
 /*
  * Loads a PRU executable binary, runs it, and waits for completion.
+ * Expect 2 command line args for main loop and delay loop iterations.
  */
 
 #include <stdio.h>
@@ -8,7 +9,7 @@
 #include <prussdrv.h>
 #include <pruss_intc_mapping.h>
 
-int main(int argc, char **argv) 
+int main(int argc, char **argv)
 {
 	unsigned int *prumem;
 	unsigned int main_loop_iterations;
@@ -47,7 +48,7 @@ int main(int argc, char **argv)
 
 	prumem[0] = main_loop_iterations;
 	prumem[1] = delay_loop_iterations;
- 
+
 	tpruss_intc_initdata pruss_intc_initdata = PRUSS_INTC_INITDATA;
 
 	prussdrv_pruintc_init(&pruss_intc_initdata);

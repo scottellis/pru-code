@@ -1,8 +1,8 @@
-; Run a simple delay loop on the PRU 
+; Run a simple delay loop on the PRU
 
 .setcallreg r29.w0
 .origin 0
-.entrypoint START 
+.entrypoint start
 
 #define PRU0_ARM_INTERRUPT 19
 
@@ -10,23 +10,20 @@
 
 #define LOOP_ITERATIONS 20
 
-START:
-  MOV r1, LOOP_ITERATIONS
+start:
+  mov r1, LOOP_ITERATIONS
 
-MAIN_LOOP:
-  CALL DELAY
-  SUB r1, r1, 1
-  QBNE MAIN_LOOP, r1, 0
+main:
+  call delay
+  sub r1, r1, 1
+  qbne main, r1, 0
+  mov r31.b0, PRU0_ARM_INTERRUPT + 16
+  halt
 
-  MOV r31.b0, PRU0_ARM_INTERRUPT + 16 
+delay:
+  mov r0, DELAY_COUNT
 
-  HALT
-
-
-DELAY:
-  MOV r0, DELAY_COUNT
-
-DELAY_LOOP:
-  SUB r0, r0, 1
-  QBNE DELAY_LOOP, r0, 0
-  RET
+delay_loop:
+  sub r0, r0, 1
+  qbne delay_loop, r0, 0
+  ret
